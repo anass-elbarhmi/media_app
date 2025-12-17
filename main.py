@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+from fastapi.responses import FileResponse
 
 app = FastAPI()
 
@@ -12,8 +13,10 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
-
+)   
+@app.get("/")
+def home():
+    return FileResponse("HTML.html")
 @app.get("/calculate_bmi")
 def calculate_bmi(
     weight: float = Query(..., gt=20, lt=200, description="Weight in kg"), 
