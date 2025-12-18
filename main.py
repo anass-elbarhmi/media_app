@@ -2,6 +2,7 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from fastapi.responses import FileResponse
+import os
 
 app = FastAPI()
 
@@ -42,5 +43,5 @@ def calculate_bmi(
     }
 
 if __name__ == "__main__":
-    # Runs the server on port 8000
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    port = int(os.environ.get("PORT", 8000))  # default 8000 locally
+    uvicorn.run(app, host="0.0.0.0", port=port)
